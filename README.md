@@ -4,6 +4,8 @@
 
 A collection of small projects to enhance and solidify my JavaScript and TypeScript skills.
 
+This project is built with [Vite](https://vitejs.dev/).
+
 ## Table of Contents
 
 - [JavaScript and TypeScript Projects](#javascript-and-typescript-projects)
