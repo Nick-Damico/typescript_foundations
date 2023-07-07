@@ -11,6 +11,7 @@ This project is built with [Vite](https://vitejs.dev/).
 - [JavaScript and TypeScript Projects](#javascript-and-typescript-projects)
   - [Table of Contents](#table-of-contents)
   - [Introduction](#introduction)
+  - [Installing](#installing)
   - [Projects](#projects)
   - [Contributing](#contributing)
   - [License](#license)
@@ -18,7 +19,21 @@ This project is built with [Vite](https://vitejs.dev/).
 
 ## Introduction
 
-This repository contains a variety of small projects that serve as exercises to strengthen your JavaScript and TypeScript skills. Each project is focused on a specific concept or topic, providing hands-on experience and allowing you to practice and reinforce your knowledge. The projects are designed to be approachable for beginners while also offering opportunities for intermediate developers to dive deeper and explore more advanced concepts.
+This repository contains a variety of small projects that serve as exercises to strengthen your JavaScript and TypeScript skills. Each project is focused on a specific concept or topic, providing hands-on experience and allowing you to practice and reinforce your knowledge.
+
+## Installing
+
+- git clone: `git clone https://github.com/Nick-Damico/typescript_foundations`
+
+- Install dependencies: `npm install`
+
+- If you have Docker installed I've included a `dev` compose file.
+
+- Using Docker? Start Container: `docker compose -f docker-compose.dev.yml up --build`
+
+- Without Docker: `npm run dev`
+
+- Navigate to: `localhost:5173`
 
 ## Projects
 
