@@ -152,16 +152,27 @@ function generateMockData(count: number) {
 }
 
 // Events
+
+// Form Modal
 document
   .querySelector<HTMLButtonElement>(".new-button")
   ?.addEventListener("click", (e) => {
     // TODO: Add toggle of hidden/visible
     e.preventDefault();
-    const formEl = document.querySelector<HTMLFormElement>(".book-form");
-    if (formEl) {
-      formEl.style.display = "flex";
+    const dialogEl = document.querySelector<HTMLFormElement>(".form-modal");
+    if (dialogEl) {
+      dialogEl.showModal();
     } else {
-      console.error(".new-button element missing");
+      console.error(".form-modal element missing");
+    }
+  });
+
+document
+  .querySelector<HTMLDialogElement>(".form-modal")
+  ?.addEventListener("cancel", () => {
+    const formEl = document.querySelector<HTMLFormElement>(".book-form");
+    if (formEl instanceof HTMLFormElement) {
+      formEl.reset();
     }
   });
 
@@ -174,6 +185,7 @@ document
       const formData = new FormData(form);
       createBookFromFormData(formData);
       form.reset();
+      document.querySelector<HTMLDialogElement>(".form-modal")!.close();
     } else {
       console.error("Form Element missing");
     }
