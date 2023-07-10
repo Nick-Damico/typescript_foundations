@@ -7,13 +7,14 @@
     <link rel="stylesheet" href="/src/style.css" />
   </head>
   <body>
+    <div class="wrapper">
     <main id="main">
       <div id="app">
-        <button class="add new-button" type="button">New Book</button>
-        <section class="book-container"></section>
-        <dialog class="form-modal">
+          <button id="newButton" class="add new-button" type="button">New Book</button>
+          <section id="bookContainer" class="book-container"></section>
+          <dialog id="formModal" class="form-modal">
           <p class="form-modal__title">Add Book to Library</p>
-          <form class="book-form" method="dialog" action="">
+            <form id="bookForm" class="book-form" method="dialog" action="">
             <div class="form-group">
               <label class="book-form__label" for="title">Title:</label>
               <input class="book-form__input" type="text" name="title" id="title" placeholder="Lord of The Rings">
@@ -30,6 +31,7 @@
           </form>
         </dialog>
     </main>
+    </div>
     <script type="module" src="/src/book.ts"></script>
   </body>
 </html>

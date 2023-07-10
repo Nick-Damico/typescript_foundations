@@ -168,7 +168,7 @@ document
   });
 
 document
-  .querySelector<HTMLDialogElement>(".form-modal")
+  .querySelector<HTMLDialogElement>("#formModal")
   ?.addEventListener("cancel", () => {
     const formEl = document.querySelector<HTMLFormElement>(".book-form");
     if (formEl instanceof HTMLFormElement) {
@@ -177,7 +177,7 @@ document
   });
 
 document
-  .querySelector<HTMLFormElement>(".book-form")
+  .querySelector<HTMLFormElement>("#bookForm")
   ?.addEventListener("submit", (e) => {
     e.preventDefault();
     const form = e.target;
