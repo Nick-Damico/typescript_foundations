@@ -8,29 +8,29 @@
   </head>
   <body>
     <div class="wrapper">
-    <main id="main">
-      <div id="app">
+      <main id="main">
+        <div id="app">
           <button id="newButton" class="add new-button" type="button">New Book</button>
           <section id="bookContainer" class="book-container"></section>
           <dialog id="formModal" class="form-modal">
-          <p class="form-modal__title">Add Book to Library</p>
+            <p class="form-modal__title">Add Book to Library</p>
             <form id="bookForm" class="book-form" method="dialog" action="">
-            <div class="form-group">
-              <label class="book-form__label" for="title">Title:</label>
-              <input class="book-form__input" type="text" name="title" id="title" placeholder="Lord of The Rings">
-            </div>
-            <div class="form-group">
-              <label class="book-form__label" for="author">Author:</label>
-              <input class="book-form__input" type="text" name="author" id="author" placeholder="J.R.R Tolkien">
-            </div>
-            <div class="form-group">
-              <label class="book-form__label" for="pages">Pages:</label>
-              <input class="book-form__input" type="number" name="pages" id="pages" min="0" placeholder="350">
-            </div>
-            <button class="book-form__button" type="submit">Save</button>
-          </form>
-        </dialog>
-    </main>
+              <div class="form-group">
+                <label class="book-form__label" for="title">Title:</label>
+                <input class="book-form__input" type="text" name="title" id="title" placeholder="Lord of The Rings">
+              </div>
+              <div class="form-group">
+                <label class="book-form__label" for="author">Author:</label>
+                <input class="book-form__input" type="text" name="author" id="author" placeholder="J.R.R Tolkien">
+              </div>
+              <div class="form-group">
+                <label class="book-form__label" for="pages">Pages:</label>
+                <input class="book-form__input" type="number" name="pages" id="pages" min="0" placeholder="350">
+              </div>
+              <button class="book-form__button" type="submit">Save</button>
+            </form>
+          </dialog>
+      </main>
     </div>
     <script type="module" src="/src/book.ts"></script>
   </body>

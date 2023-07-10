@@ -123,6 +123,11 @@ function createBookCard(
       <h2 class="book-card__title">${title}</h2>
       <p class="book-card__author">By: ${author}</p>
       <p class="book-card__pages">${pages} pages</p>
+      <button
+        class="button button--remove button--sml remove-book"
+        type="button">
+        remove
+      </button>
     </div>
   `;
 }
@@ -188,6 +193,21 @@ document
       document.querySelector<HTMLDialogElement>(".form-modal")!.close();
     } else {
       console.error("Form Element missing");
+    }
+  });
+
+document
+  .querySelector<HTMLDivElement>("#bookContainer")
+  ?.addEventListener("click", (e) => {
+    if (e.target instanceof HTMLButtonElement) {
+      const btn = e.target;
+      if (!btn.classList.contains("remove-book")) {
+        return;
+      }
+
+      if (btn.parentNode instanceof HTMLDivElement) {
+        btn.parentNode?.remove();
+      }
     }
   });
 
