@@ -101,11 +101,15 @@ function addBook(book: Book): undefined {
 }
 
 function displayBooks(): undefined {
-  LIBRARY.forEach((book: Book, idx: number) => {
-    const bookContEl =
-      document.querySelector<HTMLDivElement>(".book-container");
-    bookContEl?.insertAdjacentHTML("beforeend", createBookCard(book));
-  });
+  const bookContEl = document.querySelector<HTMLDivElement>(".book-container");
+  if (bookContEl) {
+    bookContEl.innerHTML = "";
+    LIBRARY.forEach((book: Book, idx: number) => {
+      bookContEl?.insertAdjacentHTML("beforeend", createBookCard(book));
+    });
+  } else {
+    console.log("element with book-container class is missing");
+  }
 }
 
 function createBookCard(book: Book): string {
