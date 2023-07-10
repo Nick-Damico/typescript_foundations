@@ -169,6 +169,10 @@ button.add {
   margin-left: 1rem;
 }
 
+.button--remove {
+  background-color: coral;
+}
+
 .book-form {
   display: flex;
   flex-direction: column;
@@ -206,6 +210,9 @@ button {
   background-color: #1a1a1a;
   cursor: pointer;
   transition: border-color 0.25s;
+}
+.button--sml {
+  padding: 0.3em;
 }
 button:hover {
   border-color: #646cff;
