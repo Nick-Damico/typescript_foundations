@@ -158,6 +158,7 @@ document
     }
   });
 
+// CLEAR FORM ON MODAL CLOSE
 document
   .querySelector<HTMLDialogElement>("#formModal")
   ?.addEventListener("cancel", () => {
@@ -167,6 +168,7 @@ document
     }
   });
 
+// ADD BOOK FROM UI TO LIBRARY
 document
   .querySelector<HTMLFormElement>("#bookForm")
   ?.addEventListener("submit", (e) => {
@@ -189,6 +191,7 @@ document
     }
   });
 
+// REMOVE BOOK ON CLICK
 document
   .querySelector<HTMLDivElement>("#bookContainer")
   ?.addEventListener("click", (e) => {
