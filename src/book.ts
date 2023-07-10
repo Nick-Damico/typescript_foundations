@@ -101,23 +101,15 @@ function addBook(book: Book): undefined {
 }
 
 function displayBooks(): undefined {
-  LIBRARY.forEach((book: Book, i: number) => {
-    const bookCard = `
-      <div class="book-card">
-        <h2 class="book-card__title">${book.title}</h2>
-        <p class="book-card__author">By: ${book.author}</p>
-        <p class="book-card__pages">${book.pages} pages</p>
-      </div>
-    `;
-    insertBook(bookCard);
+  LIBRARY.forEach((book: Book, idx: number) => {
+    const bookContEl =
+      document.querySelector<HTMLDivElement>(".book-container");
+    bookContEl?.insertAdjacentHTML("beforeend", createBookCard(book));
   });
 }
 
-function createBookCard(
-  title: FormDataEntryValue | null,
-  author: FormDataEntryValue | null,
-  pages: FormDataEntryValue | null
-): string {
+function createBookCard(book: Book): string {
+  const { title, author, pages } = book;
   return `
     <div class="book-card">
       <h2 class="book-card__title">${title}</h2>
@@ -132,35 +124,29 @@ function createBookCard(
   `;
 }
 
-function createBookFromFormData(formData: FormData): undefined {
-  const title = formData.get("title");
-  const author = formData.get("author");
-  const pages = formData.get("pages");
-  insertBook(createBookCard(title, author, pages));
+function addBookToLibrary(
+  title: string,
+  author: string,
+  pages: number
+): undefined {
+  const newBook: Book = {
+    title: title,
+    author: author,
+    pages: pages,
+  };
+  addBook(newBook);
 }
 
-function insertBook(bookHTML: string): undefined {
-  const bookContEl = document.querySelector<HTMLDivElement>(".book-container");
-  bookContEl?.insertAdjacentHTML("beforeend", bookHTML);
-}
-
-function generateMockData(count: number) {
+function addMockDataToLibrary(count: number) {
   for (let i = 0; i < count; ++i) {
-    const data = bookData[i];
-    const newBook: Book = new (Book as any)(
-      data.title,
-      data.author,
-      data.pages
-    );
-    addBook(newBook);
+    const { title, author, pages } = bookData[i];
+    addBookToLibrary(title, author, pages);
   }
 }
 
 // Events
-
-// Form Modal
 document
-  .querySelector<HTMLButtonElement>(".new-button")
+  .querySelector<HTMLButtonElement>("#newButton")
   ?.addEventListener("click", (e) => {
     // TODO: Add toggle of hidden/visible
     e.preventDefault();
@@ -188,9 +174,16 @@ document
     const form = e.target;
     if (form instanceof HTMLFormElement) {
       const formData = new FormData(form);
-      createBookFromFormData(formData);
-      form.reset();
-      document.querySelector<HTMLDialogElement>(".form-modal")!.close();
+      const title = formData.get("title") as string;
+      const author = formData.get("author") as string;
+      const pages = parseInt(formData.get("pages") as string);
+
+      if (title && author && pages) {
+        addBookToLibrary(title, author, pages);
+        displayBooks();
+        form.reset();
+        document.querySelector<HTMLDialogElement>(".form-modal")!.close();
+      }
     } else {
       console.error("Form Element missing");
     }
@@ -213,5 +206,5 @@ document
 
 // Program Start
 addMainHeading();
-generateMockData(3);
+addMockDataToLibrary(3);
 displayBooks();
