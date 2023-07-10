@@ -10,7 +10,7 @@ const Header = (name: string): string => {
         <ul class="header__list">
           <li class="header__list-item"><a href="/">Home</a></li>
           <li class="header__list-item"><a href="/game/">RPS:Game</a></li>
-          <li class="header__list-item"><a href="/book/">OOP:Book</a></li>
+          <li class="header__list-item"><a href="/book/">Library</a></li>
         </ul>
       </nav>
     </header>
