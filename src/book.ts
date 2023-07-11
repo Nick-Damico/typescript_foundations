@@ -1,77 +1,76 @@
-import Header from "./header.ts";
+import Header from './header.ts'
 
 const bookData: Book[] = [
   {
-    title: "To Kill a Mockingbird",
-    author: "Harper Lee",
-    pages: 336,
+    title: 'To Kill a Mockingbird',
+    author: 'Harper Lee',
+    pages: 336
   },
   {
-    title: "1984",
-    author: "George Orwell",
-    pages: 328,
+    title: '1984',
+    author: 'George Orwell',
+    pages: 328
   },
   {
-    title: "The Great Gatsby",
-    author: "F. Scott Fitzgerald",
-    pages: 180,
+    title: 'The Great Gatsby',
+    author: 'F. Scott Fitzgerald',
+    pages: 180
   },
   {
-    title: "Pride and Prejudice",
-    author: "Jane Austen",
-    pages: 279,
+    title: 'Pride and Prejudice',
+    author: 'Jane Austen',
+    pages: 279
   },
   {
-    title: "The Catcher in the Rye",
-    author: "J.D. Salinger",
-    pages: 224,
+    title: 'The Catcher in the Rye',
+    author: 'J.D. Salinger',
+    pages: 224
   },
   {
-    title: "To the Lighthouse",
-    author: "Virginia Woolf",
-    pages: 209,
+    title: 'To the Lighthouse',
+    author: 'Virginia Woolf',
+    pages: 209
   },
   {
-    title: "Moby-Dick",
-    author: "Herman Melville",
-    pages: 720,
+    title: 'Moby-Dick',
+    author: 'Herman Melville',
+    pages: 720
   },
   {
-    title: "Brave New World",
-    author: "Aldous Huxley",
-    pages: 288,
+    title: 'Brave New World',
+    author: 'Aldous Huxley',
+    pages: 288
   },
   {
-    title: "The Lord of the Rings",
-    author: "J.R.R. Tolkien",
-    pages: 1178,
+    title: 'The Lord of the Rings',
+    author: 'J.R.R. Tolkien',
+    pages: 1178
   },
   {
-    title: "Crime and Punishment",
-    author: "Fyodor Dostoevsky",
-    pages: 671,
+    title: 'Crime and Punishment',
+    author: 'Fyodor Dostoevsky',
+    pages: 671
   },
   {
-    title: "The Hobbit",
-    author: "J.R.R. Tolkien",
-    pages: 310,
+    title: 'The Hobbit',
+    author: 'J.R.R. Tolkien',
+    pages: 310
   },
   {
     title: "Harry Potter and the Sorcerer's Stone",
-    author: "J.K. Rowling",
-    pages: 309,
-  },
-];
+    author: 'J.K. Rowling',
+    pages: 309
+  }
+]
 
-const LIBRARY: Book[] = [];
+const LIBRARY: Book[] = []
 
-type Book = {
-  title: string;
-  author: string;
-  pages: number;
-  read?: Boolean;
-  info?: Function;
-};
+interface Book {
+  title: string
+  author: string
+  pages: number
+  read?: boolean
+}
 
 function Book(
   this: Book,
@@ -79,41 +78,37 @@ function Book(
   author: string,
   pages: number,
   read: boolean = false
-) {
-  this.title = title;
-  this.author = author;
-  this.pages = pages;
-  this.read = read;
+): undefined {
+  this.title = title
+  this.author = author
+  this.pages = pages
+  this.read = read
 }
 
-Book.prototype.info = function () {
-  return `${this.title} by ${this.author}, ${this.pages} pages.`;
-};
-
 function addMainHeading(): undefined {
-  const appEl = document.querySelector<HTMLDivElement>("#app");
-  appEl?.insertAdjacentText("afterbegin", "Welcome to the Book Store!");
-  appEl?.insertAdjacentHTML("afterbegin", Header("JS Foundations"));
+  const appEl = document.querySelector<HTMLDivElement>('#app')
+  appEl?.insertAdjacentText('afterbegin', 'Welcome to the Book Store!')
+  appEl?.insertAdjacentHTML('afterbegin', Header('JS Foundations'))
 }
 
 function addBook(book: Book): undefined {
-  LIBRARY.push(book);
+  LIBRARY.push(book)
 }
 
 function displayBooks(): undefined {
-  const bookContEl = document.querySelector<HTMLDivElement>(".book-container");
-  if (bookContEl) {
-    bookContEl.innerHTML = "";
+  const bookContEl = document.querySelector<HTMLDivElement>('.book-container')
+  if (bookContEl !== null) {
+    bookContEl.innerHTML = ''
     LIBRARY.forEach((book: Book, idx: number) => {
-      bookContEl?.insertAdjacentHTML("beforeend", createBookCard(book));
-    });
+      bookContEl?.insertAdjacentHTML('beforeend', createBookCard(book))
+    })
   } else {
-    console.log("element with book-container class is missing");
+    console.log('element with book-container class is missing')
   }
 }
 
 function createBookCard(book: Book): string {
-  const { title, author, pages } = book;
+  const { title, author, pages } = book
   return `
     <div class="book-card">
       <h2 class="book-card__title">${title}</h2>
@@ -125,7 +120,7 @@ function createBookCard(book: Book): string {
         remove
       </button>
     </div>
-  `;
+  `
 }
 
 function addBookToLibrary(
@@ -134,84 +129,87 @@ function addBookToLibrary(
   pages: number
 ): undefined {
   const newBook: Book = {
-    title: title,
-    author: author,
-    pages: pages,
-  };
-  addBook(newBook);
+    title,
+    author,
+    pages
+  }
+  addBook(newBook)
 }
 
-function addMockDataToLibrary(count: number) {
+function addMockDataToLibrary(count: number): undefined {
   for (let i = 0; i < count; ++i) {
-    const { title, author, pages } = bookData[i];
-    addBookToLibrary(title, author, pages);
+    const { title, author, pages } = bookData[i]
+    addBookToLibrary(title, author, pages)
   }
 }
 
 // Events
 document
-  .querySelector<HTMLButtonElement>("#newButton")
-  ?.addEventListener("click", (e) => {
+  .querySelector<HTMLButtonElement>('#newButton')
+  ?.addEventListener('click', (e) => {
     // TODO: Add toggle of hidden/visible
-    e.preventDefault();
-    const dialogEl = document.querySelector<HTMLFormElement>(".form-modal");
-    if (dialogEl) {
-      dialogEl.showModal();
+    e.preventDefault()
+    const dialogEl = document.querySelector<HTMLFormElement>('.form-modal')
+    if (dialogEl !== null) {
+      dialogEl.showModal()
     } else {
-      console.error(".form-modal element missing");
+      console.error('.form-modal element missing')
     }
-  });
+  })
 
 // CLEAR FORM ON MODAL CLOSE
 document
-  .querySelector<HTMLDialogElement>("#formModal")
-  ?.addEventListener("cancel", () => {
-    const formEl = document.querySelector<HTMLFormElement>(".book-form");
+  .querySelector<HTMLDialogElement>('#formModal')
+  ?.addEventListener('cancel', () => {
+    const formEl = document.querySelector<HTMLFormElement>('.book-form')
     if (formEl instanceof HTMLFormElement) {
-      formEl.reset();
+      formEl.reset()
     }
-  });
+  })
 
 // ADD BOOK FROM UI TO LIBRARY
 document
-  .querySelector<HTMLFormElement>("#bookForm")
-  ?.addEventListener("submit", (e) => {
-    e.preventDefault();
-    const form = e.target;
+  .querySelector<HTMLFormElement>('#bookForm')
+  ?.addEventListener('submit', (e) => {
+    e.preventDefault()
+    const form = e.target
     if (form instanceof HTMLFormElement) {
-      const formData = new FormData(form);
-      const title = formData.get("title") as string;
-      const author = formData.get("author") as string;
-      const pages = parseInt(formData.get("pages") as string);
+      const formData = new FormData(form)
+      const formModal = document.querySelector<HTMLDialogElement>('.form-modal')
+      const title = formData.get('title') as string
+      const author = formData.get('author') as string
+      const pages = parseInt(formData.get('pages') as string)
 
-      if (title && author && pages) {
-        addBookToLibrary(title, author, pages);
-        displayBooks();
-        form.reset();
-        document.querySelector<HTMLDialogElement>(".form-modal")!.close();
+      if (title !== null && author !== null && pages !== null) {
+        addBookToLibrary(title, author, pages)
+        displayBooks()
+        form.reset()
+        if (formModal !== null) {
+          formModal.close()
+        }
       }
     } else {
-      console.error("Form Element missing");
+      console.error('Form Element missing')
     }
-  });
+  })
 
 // REMOVE BOOK ON CLICK
 document
-  .querySelector<HTMLDivElement>("#bookContainer")
-  ?.addEventListener("click", (e) => {
+  .querySelector<HTMLDivElement>('#bookContainer')
+  ?.addEventListener('click', (e) => {
     if (e.target instanceof HTMLButtonElement) {
-      const btn = e.target;
-      if (!btn.classList.contains("remove-book")) {
-        return;
+      const btn = e.target
+      if (!btn.classList.contains('remove-book')) {
+        return
       }
 
       if (btn.parentNode instanceof HTMLDivElement) {
-        btn.parentNode?.remove();
+        btn.parentNode?.remove()
       }
     }
-  });
+  })
 
 // Program Start
-addMainHeading();
-addMockDataToLibrary(3);
-displayBooks();
+addMainHeading()
+addMockDataToLibrary(3)
+displayBooks()
