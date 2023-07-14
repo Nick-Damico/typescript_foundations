@@ -130,8 +130,8 @@ function updateBook(
   if (book === undefined) return
 
   if (action === 'update') {
-  book.read = !book.read
-}
+    book.read = !book.read
+  }
 
   if (action === 'remove') {
     const bookIndex = LIBRARY.findIndex((libraryBook) => libraryBook === book)
@@ -242,7 +242,8 @@ document
 
       if (title !== null && author !== null && pages !== null) {
         // TODO: Read status needs to be form driven.
-        addBookToLibrary(LIBRARY.length, title, author, pages, false)
+        const newId = Math.max(...LIBRARY.map((book) => book.id)) + 1
+        addBookToLibrary(newId, title, author, pages, false)
         displayBooks()
         form.reset()
         if (formModal !== null) {
@@ -265,8 +266,8 @@ document
       if (!(bookCard instanceof HTMLDivElement)) return
 
       updateBook(bookCard.dataset.id, action)
-        displayBooks()
-      }
+      displayBooks()
+    }
   })
 
 // Program Start
