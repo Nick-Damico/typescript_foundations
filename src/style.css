@@ -145,6 +145,10 @@ h1 {
   margin-bottom: auto;
 }
 
+.book-card span {
+  margin-bottom: 0.5rem;
+}
+
 /* FORM MODAL */
 .form-modal {
   margin: auto;
