@@ -2,74 +2,99 @@ import Header from './header.ts'
 
 const bookData: Book[] = [
   {
+    id: 0,
     title: 'To Kill a Mockingbird',
     author: 'Harper Lee',
-    pages: 336
+    pages: 336,
+    read: false
   },
   {
+    id: 1,
     title: '1984',
     author: 'George Orwell',
-    pages: 328
+    pages: 328,
+    read: false
   },
   {
+    id: 2,
     title: 'The Great Gatsby',
     author: 'F. Scott Fitzgerald',
-    pages: 180
+    pages: 180,
+    read: false
   },
   {
+    id: 3,
     title: 'Pride and Prejudice',
     author: 'Jane Austen',
-    pages: 279
+    pages: 279,
+    read: false
   },
   {
+    id: 4,
     title: 'The Catcher in the Rye',
     author: 'J.D. Salinger',
-    pages: 224
+    pages: 224,
+    read: false
   },
   {
+    id: 5,
     title: 'To the Lighthouse',
     author: 'Virginia Woolf',
-    pages: 209
+    pages: 209,
+    read: false
   },
   {
+    id: 6,
     title: 'Moby-Dick',
     author: 'Herman Melville',
-    pages: 720
+    pages: 720,
+    read: false
   },
   {
+    id: 7,
     title: 'Brave New World',
     author: 'Aldous Huxley',
-    pages: 288
+    pages: 288,
+    read: false
   },
   {
+    id: 8,
     title: 'The Lord of the Rings',
     author: 'J.R.R. Tolkien',
-    pages: 1178
+    pages: 1178,
+    read: false
   },
   {
+    id: 9,
     title: 'Crime and Punishment',
     author: 'Fyodor Dostoevsky',
-    pages: 671
+    pages: 671,
+    read: false
   },
   {
+    id: 10,
     title: 'The Hobbit',
     author: 'J.R.R. Tolkien',
-    pages: 310
+    pages: 310,
+    read: false
   },
   {
+    id: 11,
     title: "Harry Potter and the Sorcerer's Stone",
     author: 'J.K. Rowling',
-    pages: 309
+    pages: 309,
+    read: false
   }
 ]
 
 const LIBRARY: Book[] = []
 
 interface Book {
+  id: number
   title: string
   author: string
   pages: number
-  read?: boolean
+  read: boolean
 }
 
 function Book(
@@ -95,11 +120,20 @@ function addBook(book: Book): undefined {
   LIBRARY.push(book)
 }
 
+function updateBookStatus(bookId: string | undefined): undefined {
+  if (typeof bookId !== 'string') return
+
+  const book = LIBRARY[parseInt(bookId, 10)]
+  if (book === undefined) return
+
+  book.read = !book.read
+}
+
 function displayBooks(): undefined {
   const bookContEl = document.querySelector<HTMLDivElement>('.book-container')
   if (bookContEl !== null) {
     bookContEl.innerHTML = ''
-    LIBRARY.forEach((book: Book, idx: number) => {
+    LIBRARY.forEach((book, idx) => {
       bookContEl?.insertAdjacentHTML('beforeend', createBookCard(book))
     })
   } else {
@@ -107,15 +141,27 @@ function displayBooks(): undefined {
   }
 }
 
+// TODO: We will need to track an id for the books.
+//       We need to uniquely identify the book to update status.
 function createBookCard(book: Book): string {
-  const { title, author, pages } = book
+  const { id, title, author, pages, read } = book
   return `
-    <div class="book-card">
+    <div class="book-card" data-id="${id}">
       <h2 class="book-card__title">${title}</h2>
       <p class="book-card__author">By: ${author}</p>
       <p class="book-card__pages">${pages} pages</p>
+      <span>${read ? "You've read this book" : ''}</span>  
       <button
-        class="button button--remove button--sml remove-book"
+        data-action="update"
+        class="button button--${
+          read ? 'read' : 'unread'
+        } button--sml remove-book"
+        type="button">
+        ${read ? 'Unmark as Read' : 'Mark as Read'}
+      </button>
+      <button
+        data-action="remove"
+        class="button button--remove button--sml"
         type="button">
         remove
       </button>
@@ -124,22 +170,26 @@ function createBookCard(book: Book): string {
 }
 
 function addBookToLibrary(
+  id: number,
   title: string,
   author: string,
-  pages: number
+  pages: number,
+  read: boolean
 ): undefined {
   const newBook: Book = {
+    id,
     title,
     author,
-    pages
+    pages,
+    read
   }
   addBook(newBook)
 }
 
 function addMockDataToLibrary(count: number): undefined {
   for (let i = 0; i < count; ++i) {
-    const { title, author, pages } = bookData[i]
-    addBookToLibrary(title, author, pages)
+    const { id, title, author, pages, read } = bookData[i]
+    addBookToLibrary(id, title, author, pages, read)
   }
 }
 
@@ -181,7 +231,8 @@ document
       const pages = parseInt(formData.get('pages') as string)
 
       if (title !== null && author !== null && pages !== null) {
-        addBookToLibrary(title, author, pages)
+        // TODO: Read status needs to be form driven.
+        addBookToLibrary(LIBRARY.length, title, author, pages, false)
         displayBooks()
         form.reset()
         if (formModal !== null) {
@@ -199,12 +250,17 @@ document
   ?.addEventListener('click', (e) => {
     if (e.target instanceof HTMLButtonElement) {
       const btn = e.target
-      if (!btn.classList.contains('remove-book')) {
-        return
+      const action = btn.dataset.action
+      const bookCard = btn.parentNode
+      if (!(bookCard instanceof HTMLDivElement)) return
+
+      if (action === 'remove') {
+        bookCard.remove()
       }
 
-      if (btn.parentNode instanceof HTMLDivElement) {
-        btn.parentNode?.remove()
+      if (action === 'update') {
+        updateBookStatus(bookCard.dataset.id)
+        displayBooks()
       }
     }
   })

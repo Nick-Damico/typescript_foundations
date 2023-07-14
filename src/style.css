@@ -128,7 +128,7 @@ h1 {
   max-width: 200px;
   width: 100%;
   min-height: 250px;
-  padding: 5px;
+  padding: 5px 5px 0;
 }
 
 .book-card__title {
@@ -142,7 +142,7 @@ h1 {
 }
 
 .book-card__pages {
-  margin-top: auto;
+  margin-bottom: auto;
 }
 
 /* FORM MODAL */
@@ -169,8 +169,18 @@ button.add {
   margin-left: 1rem;
 }
 
+.button {
+  margin-bottom: 0.5rem;
+}
+
 .button--remove {
   background-color: coral;
+}
+.button--unread {
+  background-color: rgb(81, 182, 81);
+}
+.button--read {
+  background-color: rgb(255, 187, 0);
 }
 
 .book-form {
