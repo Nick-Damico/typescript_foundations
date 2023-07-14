@@ -120,20 +120,30 @@ function addBook(book: Book): undefined {
   LIBRARY.push(book)
 }
 
-function updateBookStatus(bookId: string | undefined): undefined {
-  if (typeof bookId !== 'string') return
+function updateBook(
+  bookId: string | undefined,
+  action: string | undefined
+): undefined {
+  if (typeof bookId !== 'string' || action === undefined) return
 
-  const book = LIBRARY[parseInt(bookId, 10)]
+  const book = LIBRARY.find((book) => book.id === parseInt(bookId, 10))
   if (book === undefined) return
 
+  if (action === 'update') {
   book.read = !book.read
+}
+
+  if (action === 'remove') {
+    const bookIndex = LIBRARY.findIndex((libraryBook) => libraryBook === book)
+    LIBRARY.splice(bookIndex, 1)
+  }
 }
 
 function displayBooks(): undefined {
   const bookContEl = document.querySelector<HTMLDivElement>('.book-container')
   if (bookContEl !== null) {
     bookContEl.innerHTML = ''
-    LIBRARY.forEach((book, idx) => {
+    LIBRARY.forEach((book) => {
       bookContEl?.insertAdjacentHTML('beforeend', createBookCard(book))
     })
   } else {
@@ -254,15 +264,9 @@ document
       const bookCard = btn.parentNode
       if (!(bookCard instanceof HTMLDivElement)) return
 
-      if (action === 'remove') {
-        bookCard.remove()
-      }
-
-      if (action === 'update') {
-        updateBookStatus(bookCard.dataset.id)
+      updateBook(bookCard.dataset.id, action)
         displayBooks()
       }
-    }
   })
 
 // Program Start
