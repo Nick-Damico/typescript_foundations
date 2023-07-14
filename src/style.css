@@ -124,17 +124,18 @@ h1 {
 .book-card {
   display: flex;
   flex-direction: column;
-  border: 1px solid grey;
   max-width: 200px;
   width: 100%;
   min-height: 250px;
   padding: 5px 5px 0;
+  border: 1px solid grey;
 }
 
 .book-card__title {
-  color: lightgreen;
-  border-bottom: 1px solid lightgrey;
   margin-bottom: 0.5rem;
+  min-height: 75px;
+  border-bottom: 1px solid lightgrey;
+  color: lightgreen;
 }
 
 .book-card__author {
