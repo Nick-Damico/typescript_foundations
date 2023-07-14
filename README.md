@@ -38,9 +38,18 @@ This repository contains a variety of small projects that serve as exercises to 
 ## Projects
 
 1. Project 1 Rock Paper Scissors: Simple implementation of a classic game.
+
    - [Source Code]
 
-...
+2. Project 2: Libary
+
+- [Source Code]
+  **Requirements**
+- [x] Display Books in the Library.
+- [x] Add New books to the library from a form allowing users to input details for the new: including author, title, number of pages, and whether it's been read.
+- [x] Add a button on each book's display to remove the book from the library.
+- [ ] Add a button to change the status of a book from a status to read.
+- [ ] Bonus: Add filtering by status
 
 Choose a project that aligns with your current skill level or interests and dive in!
 
