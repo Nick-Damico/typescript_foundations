@@ -97,19 +97,6 @@ interface Book {
   read: boolean
 }
 
-function Book(
-  this: Book,
-  title: string,
-  author: string,
-  pages: number,
-  read: boolean = false
-): undefined {
-  this.title = title
-  this.author = author
-  this.pages = pages
-  this.read = read
-}
-
 function addMainHeading(): undefined {
   const appEl = document.querySelector<HTMLDivElement>('#app')
   appEl?.insertAdjacentText('afterbegin', 'Welcome to the Book Store!')
