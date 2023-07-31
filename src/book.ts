@@ -99,7 +99,6 @@ interface Book {
 
 function addMainHeading(): undefined {
   const appEl = document.querySelector<HTMLDivElement>('#app')
-  appEl?.insertAdjacentText('afterbegin', 'Welcome to the Book Store!')
   appEl?.insertAdjacentHTML('afterbegin', Header('JS Foundations'))
 }
 
